@@ -1,40 +1,35 @@
 ﻿#=============================================================================================================================
-#
+# Example!!! 
 # Script Name:     Detect_Update_PowerShell_Modules.ps1
-# Description:     Detect outdated PowerShell Module and update from PowerShell Gallery
+# Description:     Detect outdated Microsoft Teams PowerShell Module and update from PowerShell Gallery
 # Notes:           The purpose of this script is to keep installed PowerShell Modules on IT Administrator Devices up to 
 #                  date with the latest PowerShell Modules from the PowerShell Gallery
 #
 #=============================================================================================================================
 
 # Define Variables
-$Array = @(Get-InstalledModule)
-$Green = 'Green'
-$DarkRed = 'DarkRed'
-$DarkCyan = 'DarkCyan'
-$White = 'White'
 
-   Foreach ($Module in $Array) {
-   
+$ModuleName = 'MicrosoftTeams'
+$Version = '1.1.4'
 
-    $ModuleCheck = Get-InstalledModule -name $Module.Name -ErrorAction SilentlyContinue
-    $online = Find-Module -Name $module.name -Repository PSGallery -ErrorAction Stop   
 
-     if ($ModuleCheck.version -EQ $online.Version) {
-           Write-Host 'Detected: '$Module.Name, 'doesnt require an update as installed version' $Module.Version,'matches the latest online version' $online.Version -ForegroundColor $Green
-           
-          }
-     else {
-           Write-Host 'Detected:'$Module.Name 'Module', 'is running an outdate version' $Module.Version, 'Version'$online.Version, 'is now available' -ForegroundColor $White -BackgroundColor $DarkRed
-           Exit 1
-          }  
-}
+  
+    $ModuleCheck = Get-InstalledModule -Name $ModuleName
+    if (($ModuleCheck -match $ModuleCheck.Version)){
+        Write-Host "Installed Module matches corporate approved version", $ModuleName, $Version
+        exit 1
+    }
+    else{
+        Write-Host "Installed Modules doesnt match corporate approved version", $ModuleName, $Version
+        exit 0
+    }    
 
+  
 # SIG # Begin signature block
 # MIID5wYJKoZIhvcNAQcCoIID2DCCA9QCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU2Y+WhHHtP0GBbIFatVmE5n8l
-# 8kqgggIDMIIB/zCCAWigAwIBAgIQQpygbaU9/7tO9TFRA7HT5jANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQURlbMwJUOBvgqD199hBYZrhQm
+# xQKgggIDMIIB/zCCAWigAwIBAgIQQpygbaU9/7tO9TFRA7HT5jANBgkqhkiG9w0B
 # AQUFADAaMRgwFgYDVQQDDA9CbG9nYWJvdXQuQ2xvdWQwHhcNMjAwODI2MjE1NzU3
 # WhcNMjQwODI2MDAwMDAwWjAaMRgwFgYDVQQDDA9CbG9nYWJvdXQuQ2xvdWQwgZ8w
 # DQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANxdFHO7/WOrtN5bIfrO7n6cMc52aS14
@@ -48,8 +43,8 @@ $White = 'White'
 # SgIBATAuMBoxGDAWBgNVBAMMD0Jsb2dhYm91dC5DbG91ZAIQQpygbaU9/7tO9TFR
 # A7HT5jAJBgUrDgMCGgUAoHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkq
 # hkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGC
-# NwIBFTAjBgkqhkiG9w0BCQQxFgQUuxcuQAjLtYqHbYb4f5FZLnCSJuowDQYJKoZI
-# hvcNAQEBBQAEgYDNTwpE0Qo0VI8t4xua/REuYXvRzalyXDAWC+y41ceTuo3o6W0K
-# /CQLvrMogbeeMo49h+NiiJI/mk1FMuMeETU785JAO5Ujqe3cWpIQQT57NEO2Xwst
-# NR8Yto/UUQL9+dcZmDHOkBbpn2D8VWMMXnUQYrNlH2snOdEiZxaycghCzg==
+# NwIBFTAjBgkqhkiG9w0BCQQxFgQUaZE08cgiR5qNfNoOfMbd//sf+ZMwDQYJKoZI
+# hvcNAQEBBQAEgYBS02NkezUF8sgaQ7pYf5Sm3+oqt/d5w8UiIW6L+5uMoJbdlFJc
+# 9fM1wnAEURVHp5UNpLa5a78kpP63Ne6G6p7RVi237IMq2vaZnOts6Jg4hCuLbLPP
+# YShU4zWM/9eX0GVlw2T7K1Iv8sCnmSIbbuMNEek00RfiIGKdE2pDBgfJlg==
 # SIG # End signature block
